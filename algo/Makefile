@@ -1,5 +1,5 @@
 SHELL+=-x
-GTEST_DIR=/home/vikram/FOT/mytest/gtest
+GTEST_DIR=$(HOME)/FOT/mytest/gtest
 
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h

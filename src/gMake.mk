@@ -1,7 +1,7 @@
 SHELL+=-x
-GTEST_DIR=$(HOME)/gtest
 
-USER_DIR = src
+GTEST_DIR = $(HOME)/FOT/mytest/gtest
+USER_DIR = $(HOME)/FOT/mytest/src
 
 # Flags passed to the preprocessor.
 # Set Google Test's header directory as a system directory, such that
@@ -20,7 +20,10 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 
 # House-keeping build targets.
 
-all : $(TESTS)
+#debug : ;
+#	@echo GTEST_DIR is $(GTEST_DIR)
+#
+all : $(TESTS) 
 
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
@@ -36,6 +39,7 @@ gtest-all.o : $(GTEST_SRCS_)
             $(GTEST_DIR)/src/gtest-all.cc
 
 gtest_main.o : $(GTEST_SRCS_)
+	@echo GTEST_DIR is $(GTEST_DIR)
 	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
             $(GTEST_DIR)/src/gtest_main.cc
 
