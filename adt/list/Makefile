@@ -2,26 +2,27 @@ SHELL+=-x
 ROOT=../..
 include $(ROOT)/common.mk
 
-EXECS = my-pair
+EXECS = sll
 
 HEADERS = $(addsuffix .h,$(EXECS))
+SRC = $(addsuffix .cpp,$(EXECS))
 OBJS = $(addsuffix .o,$(EXECS))
 
 all : $(EXECS)
 
 clean :
-	rm -f $(EXECS) *.o *.gch
+	rm -f $(EXECS) *.o *.gch sllx
 
-$(OBJS) : 
+$(OBJS) : $(SRC) $(HEADERS)
 	$(CXX) $(CXXFLAGS) -c $<
 
-my-pair.o : my-pair.cpp my-pair.h
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $<
+$(EXECS) : $(OBJS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
-main.o :  main.cpp my-pair.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+sllx.o  : sll.cxx 
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-my-pair: main.o my-pair.o
+sllx  : sllx.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 .PHONY: help
